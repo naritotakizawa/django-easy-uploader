@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+include requirements.txt
+recursive-include easy_uploader/static *
+recursive-include easy_uploader/templates *
+recursive-include docs *

@@ -1,0 +1,15 @@
+{% extends "easy_uploader/base.html" %}
+{% block file_page %}active{% endblock %}
+{% block content %}
+
+  <div class="container">
+    <form action="" method="POST" enctype='multipart/form-data'>
+	  <div class="text-center">
+	    <p>カテゴリ名:{{ category.name }}</p>
+	    <button type="submit" class="btn btn-outline-primary">削除する</button>
+	    <a href="{% url 'easy_uploader:category_index' %}" class="btn btn-outline-primary">やめる</a>
+	  </div>
+	  {% csrf_token %}
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "easy_uploader/base.html" %}
+{% block img_page %}active{% endblock %}
+{% block content %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>画像アップローダー</h1>
+      <p class="lead text-muted">画像をアップロードしましょう</p>
+      <p>
+        <a href="{% url 'easy_uploader:img_create' %}" class="btn btn-primary">画像アップロード</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+    {% for img in img_list %}
+      <div class="col-12 col-sm-6 my-3">
+        <div class="row">
+        <div class="col-4">
+          <img class="img-thumbnail" src="{{ img.file.url }}" alt="{{ img.title }}">
+        </div>
+        <div class="col-8">
+          <p>タイトル : {{ img.title }}</p>
+          <p>ファイル名 : {{ img.get_filename }}</p>
+          <p>作成日 : {{ img.created_at }}</p>
+          <div class="btn-group">
+            <a href="{% url 'easy_uploader:img_update' img.pk %}" class="btn btn-outline-primary">
+              更新
+            </a>
+            <a href="{% url 'easy_uploader:img_delete' img.pk %}" class="btn btn-outline-primary">
+              削除
+            </a>
+            <a target="_blank" href="{{ img.file.url }}" class="btn btn-outline-primary">
+              画像を開く
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+    <div class="text-center">
+      {% include "easy_uploader/page.html" %}
+    </div>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "easy_uploader/base.html" %}
+{% block file_page %}active{% endblock %}
+{% block content %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>ファイルアップローダー</h1>
+      <p class="lead text-muted">ファイルをアップロードしましょう</p>
+      <p>
+        <a href="{% url 'easy_uploader:file_create' %}" class="btn btn-primary">
+          ファイルアップロード
+        </a>
+        <a href="{% url 'easy_uploader:category_index' %}" class="btn btn-primary">
+          カテゴリ一覧
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>ファイル名</th>
+          <th>カテゴリ</th>
+          <th>作成日</th>
+          <th>#</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in file_list %}
+          <tr>
+            <td>{{ file.title }}</td>
+            <td>{{ file.get_filename }}</td>
+            <td>{{ file.category.name }}</td>
+            <td>{{ file.created_at }}</td>
+            <td>
+              <div class="btn-group">
+                <a href="{% url 'easy_uploader:file_update' file.pk %}" class="btn btn-outline-primary">
+                  更新
+                </a>
+                <a href="{% url 'easy_uploader:file_delete' file.pk %}" class="btn btn-outline-primary">
+                  削除
+                </a>
+                <a href="{{ file.file.url }}" download="{{ file.get_filename }}" class="btn btn-outline-primary">
+                  ダウンロード
+                </a>
+            </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="text-center">
+      {% include "easy_uploader/page.html" %}
+    </div>
+  </div>
+{% endblock %}

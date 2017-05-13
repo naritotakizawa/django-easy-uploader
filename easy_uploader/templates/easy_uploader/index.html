@@ -1,0 +1,18 @@
+{% extends "easy_uploader/base.html" %}
+{% block top_page %}active{% endblock %}
+{% block content %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>アップローダーサンプル</h1>
+      <p class="lead text-muted">
+        アップローダーのサンプルです。Bootstrap4を使っています。<br>
+        <a href="https://bitbucket.org/toritoritorina/django-easy-uploader" target="_blank">ソースコード</a>
+      </p>
+      <p>
+        <a href="{% url 'easy_uploader:img_index' %}" class="btn btn-primary">画像アプロダ</a>
+        <a href="{% url 'easy_uploader:file_index' %}" class="btn btn-primary">ファイルアプロダ</a>
+      </p>
+    </div>
+  </section>
+
+{% endblock %}
