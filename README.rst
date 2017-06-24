@@ -2,9 +2,24 @@
 django-easy-uploader
 ====================
 
+.. image:: https://travis-ci.org/naritotakizawa/django-easy-uploader.svg?branch=master
+    :target: https://travis-ci.org/naritotakizawa/django-easy-uploader
+
+.. image:: https://coveralls.io/repos/github/naritotakizawa/django-easy-uploader/badge.svg?branch=master
+    :target: https://coveralls.io/github/naritotakizawa/django-easy-uploader?branch=master
+
+
+
 シンプルなファイルアップローダーです。
 
 https://torina.top/uploader
+
+Requirement
+--------------
+
+:Python: 3.5以上
+:Django: 1.10以上
+
 
 Quick start
 -----------
