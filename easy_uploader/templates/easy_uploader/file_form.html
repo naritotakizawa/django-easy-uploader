@@ -16,7 +16,7 @@
       {% csrf_token %}
       <div class="text-center">
         <button type="submit" class="btn btn-outline-primary">送信する</button>
-        <a href="{% url 'easy_uploader:file_index' %}" class="btn btn-outline-primary">やめる</a>
+        <a class="btn btn-outline-primary" href="javascript:void(0);" onclick="window.history.back();">戻る</a>
       </div>
     </form>
   </div>

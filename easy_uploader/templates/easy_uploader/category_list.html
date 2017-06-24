@@ -1,26 +1,16 @@
 {% extends "easy_uploader/base.html" %}
-{% block file_page %}active{% endblock %}
+{% block category_page %}active{% endblock %}
 {% block content %}
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1>カテゴリー管理</h1>
-      <p class="lead text-muted">カテゴリの管理はこちら</p>
-      <p>
-        <a href="{% url 'easy_uploader:category_create' %}" class="btn btn-primary">
-          カテゴリ作成
-        </a>
-        <a href="{% url 'easy_uploader:file_index' %}" class="btn btn-primary">
-          ファイル一覧
-        </a>
-      </p>
-    </div>
-  </section>
-
   <div class="container">
+      <a href="{% url 'easy_uploader:category_create' %}" class="btn btn-outline-primary">
+          新規作成
+      </a>
+      <hr>
     <table class="table">
       <thead>
         <tr>
           <th>カテゴリ名</th>
+          <th>作成日</th>
           <th>#</th>
         </tr>
       </thead>
@@ -28,18 +18,26 @@
         {% for category in category_list %}
           <tr>
             <td>{{ category.name }}</td>
+            <td>{{ category.created_at }}</td>
             <td>
-              <a href="{% url 'easy_uploader:category_update' category.pk %}">
-                編集
-              </a>
-              <a href="{% url 'easy_uploader:category_delete' category.pk %}">
-                削除
-              </a>
+                <a href="{% url 'easy_uploader:category_update' category.pk %}" class="btn btn-outline-primary btn-sm">
+                  更新
+                </a>
+                <form class="delete-form" action="{% url 'easy_uploader:category_delete' category.pk %}" method="POST">
+                    <button type="button" class="btn btn-outline-primary btn-sm delete">削除</button>
+                    {% csrf_token %}
+                </form>
+                <a href="{% url 'easy_uploader:file_category' category.pk %}" class="btn btn-outline-primary btn-sm">
+                  カテゴリのファイル一覧
+                </a>
+
             </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
-
+    <div class="text-center">
+      {% include "easy_uploader/page.html" %}
+    </div>
   </div>
 {% endblock %}

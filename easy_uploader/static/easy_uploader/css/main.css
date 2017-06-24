@@ -7,3 +7,6 @@ section.jumbotron {
   background-color: #fff;
 }
 
+.delete-form {
+    display: inline;
+}

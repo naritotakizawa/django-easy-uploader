@@ -10,6 +10,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" type="text/css" href="https://torina.top/media/sweetalert/sweetalert.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'easy_uploader/css/main.css' %}">
   </head>
@@ -21,26 +24,52 @@
       <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
       <div class="container">
         <ul class="nav navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link {% block top_page %}{% endblock %}" href="{% url 'easy_uploader:index' %}">Home</a>
+         <li class="nav-item">
+            <a class="nav-link {% block file_page %}{% endblock %}" href="{% url 'easy_uploader:file_index' %}">File</a>
           </li>
          <li class="nav-item">
-            <a class="nav-link {% block img_page %}{% endblock %}" href="{% url 'easy_uploader:img_index' %}">Img Uploader</a>
-          </li>
-         <li class="nav-item">
-            <a class="nav-link {% block file_page %}{% endblock %}" href="{% url 'easy_uploader:file_index' %}">File Uploader</a>
+            <a class="nav-link {% block category_page %}{% endblock %}" href="{% url 'easy_uploader:category_index' %}">Category</a>
           </li>
         </ul>
         </div>
       </div>
     </nav>
-
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1>アップローダーサンプル</h1>
+          <p class="lead text-muted">
+            アップローダーのサンプルです。Bootstrap4を使っています。<br>
+            <a href="https://github.com/naritotakizawa/django-easy-uploader" target="_blank">ソースコード</a>
+          </p>
+        </div>
+      </section>
     {% block content %} {% endblock %}
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
- 
+    
+    <!-- Sweet Alert -->
+    <script src="https://torina.top/media/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+    $('.delete').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+        swal({
+            title: "確認",
+            text: "削除してよろしいですか？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function(isConfirm){
+            if (isConfirm) form.submit();
+        });
+    });
+    </script>
+
   </body>
 </html>
