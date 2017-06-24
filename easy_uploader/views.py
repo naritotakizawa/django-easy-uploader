@@ -1,14 +1,10 @@
-from urllib import parse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse_lazy
-from django.db.models import Q
-from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.shortcuts import redirect, get_object_or_404
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import File, Category
+
 from .forms import FileForm, CategoryForm
+from .models import File, Category
 
 
 class FileIndexView(generic.ListView):
@@ -24,12 +20,13 @@ def indirect_link(request, pk):
     file = get_object_or_404(File, pk=pk)
     return redirect(file.src.url)
 
+
 class FileCategoryView(generic.ListView):
     """カテゴリ別のファイル一覧."""
 
     model = File
     paginate_by = 20
-    
+
     def get_queryset(self):
         """カテゴリでfilter."""
         category_pk = self.kwargs['pk']
@@ -37,13 +34,12 @@ class FileCategoryView(generic.ListView):
             category__pk=category_pk).order_by('-created_at')
 
 
-
 class FileCreateView(LoginRequiredMixin, generic.CreateView):
     """ファイルの作成."""
 
     model = File
     form_class = FileForm
-    success_url = reverse_lazy("easy_uploader:file_index")
+    success_url = reverse_lazy('easy_uploader:file_index')
 
 
 class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -51,14 +47,14 @@ class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     model = File
     form_class = FileForm
-    success_url = reverse_lazy("easy_uploader:file_index")
+    success_url = reverse_lazy('easy_uploader:file_index')
 
 
 class FileDeleteView(LoginRequiredMixin, generic.DeleteView):
     """ファイルの削除."""
 
     model = File
-    success_url = reverse_lazy("easy_uploader:file_index")
+    success_url = reverse_lazy('easy_uploader:file_index')
 
 
 class CategoryIndexView(generic.ListView):
@@ -74,7 +70,7 @@ class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
 
     model = Category
     form_class = CategoryForm
-    success_url = reverse_lazy("easy_uploader:category_index")
+    success_url = reverse_lazy('easy_uploader:category_index')
 
 
 class CategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -82,11 +78,11 @@ class CategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     model = Category
     form_class = CategoryForm
-    success_url = reverse_lazy("easy_uploader:category_index")
+    success_url = reverse_lazy('easy_uploader:category_index')
 
 
 class CategoryDeleteView(LoginRequiredMixin, generic.DeleteView):
     """カテゴリの削除."""
 
     model = Category
-    success_url = reverse_lazy("easy_uploader:category_index")
+    success_url = reverse_lazy('easy_uploader:category_index')

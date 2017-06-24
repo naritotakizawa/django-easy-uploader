@@ -1,6 +1,23 @@
 import os
 import sys
 from setuptools import find_packages, setup
+from setuptools.command.test import test as TestCommand
+
+
+class DjangoTest(TestCommand):
+
+    def run_tests(self):
+        # import here, cause outside the eggs aren't loaded
+        import django
+        from django.conf import settings
+        from django.test.utils import get_runner
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.test_settings'
+        django.setup()
+        TestRunner = get_runner(settings)
+        test_runner = TestRunner()
+        failures = test_runner.run_tests(['tests'])
+        sys.exit(bool(failures))
+
 
 with open(os.path.join(os.path.dirname(__file__), 'README.rst'), 'rb') as readme:
     README = readme.read()
@@ -33,4 +50,5 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
+    cmdclass={'test': DjangoTest},
 )
