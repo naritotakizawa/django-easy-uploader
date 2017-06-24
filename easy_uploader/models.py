@@ -25,7 +25,7 @@ def default_category():
     """デフォルトのカテゴリを返す（まだなければ作る）."""
     category, _ = Category.objects.get_or_create(name='default')
     return category
-    
+
 
 class File(models.Model):
     """アップロードするファイル."""
