@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
 
+app_name = 'easy_uploader'
 
 urlpatterns = [
     url(r'^$', views.TopPageView.as_view(), name='index'),

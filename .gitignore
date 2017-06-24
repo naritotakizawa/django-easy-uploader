@@ -1,0 +1,15 @@
+*.pyc
+*.pyo
+.eggs
+*.egg-info
+.cache
+.coverage
+.tox
+
+db.sqlite3
+manage.py
+
+project/
+media/
+dist/
+__pycache__
