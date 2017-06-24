@@ -1,23 +1,9 @@
 from django import forms
-from .models import Img, File, Category
-
-
-class ImgForm(forms.ModelForm):
-
-    class Meta:
-        model = Img
-        fields = '__all__'
-        widgets = {
-            'title': forms.TextInput(attrs={
-                'class': "form-control",
-            }),
-            'file': forms.ClearableFileInput(attrs={
-                'class': "form-control-file",
-            }),
-        }
+from .models import File, Category
 
 
 class FileForm(forms.ModelForm):
+    """Fileモデルのフォーム."""
 
     class Meta:
         model = File
@@ -32,10 +18,14 @@ class FileForm(forms.ModelForm):
             'category': forms.Select(attrs={
                 'class': "form-control",
             }),
+            'created_at': forms.DateTimeInput(attrs={
+                'class': 'form-control',
+            }),
         }
 
 
 class CategoryForm(forms.ModelForm):
+    """Categoryモデルのフォーム."""
 
     class Meta:
         model = Category
@@ -43,5 +33,8 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': "form-control",
+            }),
+            'created_at': forms.DateTimeInput(attrs={
+                'class': 'form-control',
             }),
         }

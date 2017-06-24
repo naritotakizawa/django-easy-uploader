@@ -1,27 +1,18 @@
 {% extends "easy_uploader/base.html" %}
 {% block file_page %}active{% endblock %}
 {% block content %}
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1>ファイルアップローダー</h1>
-      <p class="lead text-muted">ファイルをアップロードしましょう</p>
-      <p>
-        <a href="{% url 'easy_uploader:file_create' %}" class="btn btn-primary">
-          ファイルアップロード
-        </a>
-        <a href="{% url 'easy_uploader:category_index' %}" class="btn btn-primary">
-          カテゴリ一覧
-        </a>
-      </p>
-    </div>
-  </section>
 
   <div class="container">
+      <a href="{% url 'easy_uploader:file_create' %}" class="btn btn-outline-primary">
+          新規作成
+      </a>
+      <hr>
     <table class="table">
       <thead>
         <tr>
           <th>タイトル</th>
           <th>ファイル名</th>
+          <th>間接リンク</th>
           <th>カテゴリ</th>
           <th>作成日</th>
           <th>#</th>
@@ -32,20 +23,28 @@
           <tr>
             <td>{{ file.title }}</td>
             <td>{{ file.get_filename }}</td>
-            <td>{{ file.category.name }}</td>
+            <td>
+                <a href="{% url 'easy_uploader:indirect_link' file.pk %}" target="_blank">
+                    {% url 'easy_uploader:indirect_link' file.pk %}
+                </a>
+            </td>
+            <td><a href="{% url 'easy_uploader:file_category' file.category.pk %}">{{ file.category.name }}</a></td>
             <td>{{ file.created_at }}</td>
             <td>
-              <div class="btn-group">
-                <a href="{% url 'easy_uploader:file_update' file.pk %}" class="btn btn-outline-primary">
+                <a href="{% url 'easy_uploader:file_update' file.pk %}" class="btn btn-outline-primary btn-sm">
                   更新
                 </a>
-                <a href="{% url 'easy_uploader:file_delete' file.pk %}" class="btn btn-outline-primary">
-                  削除
+                <form class="delete-form" action="{% url 'easy_uploader:file_delete' file.pk %}" method="POST">
+                    <button type="button" class="btn btn-outline-primary btn-sm delete">削除</button>
+                    {% csrf_token %}
+                </form>
+                <a href="{{ file.src.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                  ブラウザで開く
                 </a>
-                <a href="{{ file.file.url }}" download="{{ file.get_filename }}" class="btn btn-outline-primary">
+                <a href="{{ file.src.url }}" download="{{ file.get_filename }}" class="btn btn-outline-primary btn-sm">
                   ダウンロード
                 </a>
-            </div>
+
             </td>
           </tr>
         {% endfor %}
