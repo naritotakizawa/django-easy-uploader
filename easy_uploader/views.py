@@ -29,9 +29,15 @@ class FileCategoryView(generic.ListView):
 
     def get_queryset(self):
         """カテゴリでfilter."""
-        category_pk = self.kwargs['pk']
+        category_pk = self.kwargs['category_pk']
         return File.objects.filter(
             category__pk=category_pk).order_by('-created_at')
+
+    def get_context_data(self, *args, **kwargs):
+        """カテゴリのpkをテンプレートへ渡す."""
+        context = super().get_context_data(*args, **kwargs)
+        context['category_pk'] = self.kwargs.get('category_pk')
+        return context
 
 
 class FileCreateView(LoginRequiredMixin, generic.CreateView):
@@ -40,6 +46,12 @@ class FileCreateView(LoginRequiredMixin, generic.CreateView):
     model = File
     form_class = FileForm
     success_url = reverse_lazy('easy_uploader:file_index')
+
+    def get_initial(self):
+        """カテゴリの指定があれば、そのカテゴリを選択状態に."""
+        initial = super().get_initial()
+        initial['category'] = self.kwargs.get('category_pk')
+        return initial
 
 
 class FileUpdateView(LoginRequiredMixin, generic.UpdateView):

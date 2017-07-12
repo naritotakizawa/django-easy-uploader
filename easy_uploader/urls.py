@@ -6,9 +6,11 @@ app_name = 'easy_uploader'
 urlpatterns = [
     # FileのCRUD
     url(r'^$', views.FileIndexView.as_view(), name='file_index'),
-    url(r'^file/category/(?P<pk>[0-9]+)/$',
+    url(r'^file/category/(?P<category_pk>[0-9]+)/$',
         views.FileCategoryView.as_view(), name='file_category'),
     url(r'^file/create/$', views.FileCreateView.as_view(), name='file_create'),
+    url(r'^file/create/(?P<category_pk>[0-9]+)/$',
+        views.FileCreateView.as_view(), name='file_create'),
     url(r'^file/update/(?P<pk>[0-9]+)/$',
         views.FileUpdateView.as_view(), name='file_update'),
     url(r'^file/delete/(?P<pk>[0-9]+)/$',
