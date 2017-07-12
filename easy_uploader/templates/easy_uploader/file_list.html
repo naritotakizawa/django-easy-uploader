@@ -3,9 +3,15 @@
 {% block content %}
 
   <div class="container">
-      <a href="{% url 'easy_uploader:file_create' %}" class="btn btn-outline-primary">
+      {% if category_pk %}
+      <a href="{% url 'easy_uploader:file_create' category_pk %}" class="btn btn-outline-primary">
           新規作成
       </a>
+      {% else %}
+      <a href="{% url 'easy_uploader:file_create' %}" class="btn btn-outline-primary">
+          新規作成
+      </a>      
+      {% endif %}
       <hr>
     <table class="table">
       <thead>
