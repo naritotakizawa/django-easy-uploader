@@ -15,7 +15,8 @@
       {% endfor %}
       {% csrf_token %}
       <div class="text-center">
-        <button type="submit" class="btn btn-outline-primary">送信する</button>
+        <button type="submit" class="btn btn-outline-primary" value="send" name="action">送信する</button>
+        <button type="submit" class="btn btn-outline-primary" value="send_more" name="action">送信してもう1つ追加</button>
         <a href="{% url 'easy_uploader:category_index' %}" class="btn btn-outline-primary">やめる</a>
       </div>
     </form>
