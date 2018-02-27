@@ -53,6 +53,17 @@ class FileCreateView(LoginRequiredMixin, generic.CreateView):
         initial['category'] = self.kwargs.get('category_pk')
         return initial
 
+    def form_valid(self, form):
+        file = form.save()
+        action = self.request.POST['action']
+
+        # 保存してもう一つ追加ボタンのとき
+        if action == 'send_more':
+            return redirect('easy_uploader:file_create', file.category.pk)
+
+        # それ以外、送信ボタン        
+        else:
+            return redirect('easy_uploader:file_create')
 
 class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
     """ファイルの更新."""
@@ -61,6 +72,17 @@ class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = FileForm
     success_url = reverse_lazy('easy_uploader:file_index')
 
+    def form_valid(self, form):
+        file = form.save()
+        action = self.request.POST['action']
+
+        # 保存してもう一つ追加ボタンのとき
+        if action == 'send_more':
+            return redirect('easy_uploader:file_create', file.category.pk)
+
+        # それ以外、送信ボタン        
+        else:
+            return redirect('easy_uploader:file_create')
 
 class FileDeleteView(LoginRequiredMixin, generic.DeleteView):
     """ファイルの削除."""
