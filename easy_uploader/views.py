@@ -65,6 +65,7 @@ class FileCreateView(LoginRequiredMixin, generic.CreateView):
         else:
             return redirect('easy_uploader:file_create')
 
+          
 class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
     """ファイルの更新."""
 
@@ -83,6 +84,7 @@ class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
         # それ以外、送信ボタン        
         else:
             return redirect('easy_uploader:file_create')
+
 
 class FileDeleteView(LoginRequiredMixin, generic.DeleteView):
     """ファイルの削除."""
