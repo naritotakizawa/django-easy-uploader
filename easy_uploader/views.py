@@ -63,7 +63,7 @@ class FileCreateView(LoginRequiredMixin, generic.CreateView):
 
         # それ以外、送信ボタン        
         else:
-            return redirect('easy_uploader:file_create')
+            return redirect('easy_uploader:file_index')
 
           
 class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -83,7 +83,7 @@ class FileUpdateView(LoginRequiredMixin, generic.UpdateView):
 
         # それ以外、送信ボタン        
         else:
-            return redirect('easy_uploader:file_create')
+            return redirect('easy_uploader:file_index')
 
 
 class FileDeleteView(LoginRequiredMixin, generic.DeleteView):
