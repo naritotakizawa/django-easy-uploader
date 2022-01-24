@@ -12,8 +12,6 @@ django-easy-uploader
 
 シンプルなファイルアップローダーです。
 
-https://torina.top/uploader
-
 Requirement
 --------------
 
